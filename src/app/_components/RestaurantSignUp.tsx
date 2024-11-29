@@ -5,7 +5,7 @@ import { IoIosRestaurant } from "react-icons/io";
 const restaurantLogin: React.FC = () => {
   const inputCss = "border-2 rounded-md bg-slate-100 hover:bg-slate-200";
   return (
-    <div className="w-[50%] border-2 rounded-md bg-slate-100 flex flex-col justify-start items-center">
+    <div className="bg-slate-100 flex flex-col justify-start items-center">
       <h1 className="text-3xl p-4">
         Login as Restaurant
         <IoIosRestaurant className="inline ml-1 hover:animate-spin " />
