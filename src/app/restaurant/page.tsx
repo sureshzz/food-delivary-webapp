@@ -3,18 +3,21 @@ import React from 'react'
 import RestaurantLogin from '../_components/RestaurantLogin';
 import RestaurantSignUp from '../_components/RestaurantSignUp';
 import { useState } from 'react';
-import { Button } from '@/components/ui/button';
+import RestaurantHeader from '../_components/RestaurantHeader';
+import RestaurantFooter from '../_components/RestaurantFooter';
+
 
 const Restaurant:React.FC = () => {
   const [login,setLogin] = useState<boolean>(true);
   return (
     <>
-      <div className="flex  flex-col items-center">
+      <div className="flex  flex-col items-center min-h-screen">
+        <RestaurantHeader />
         {/* <div>restaurant page</div> */}
-        <div className=" flex flex-col items-center border-2 bg-slate-100 rounded-md ">
+        <div className=" flex flex-col items-center border-2 bg-slate-100 rounded-lg mt-8">
           {login ? <RestaurantLogin /> : <RestaurantSignUp />}
           <button
-            className="hover:cursor hover:underline p-1 my-2 "
+            className="text-slate-500 border-t-2 mt-2 hover:cursor hover:underline hover:text-slate-700 py-4"
             onClick={() => {
               setLogin(!login);
             }}
@@ -24,6 +27,7 @@ const Restaurant:React.FC = () => {
               : "Already have an account?Sign In"}
           </button>
         </div>
+        <RestaurantFooter />
       </div>
     </>
   );
