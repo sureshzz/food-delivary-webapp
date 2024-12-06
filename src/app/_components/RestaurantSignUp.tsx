@@ -3,8 +3,9 @@ import { Button } from "@/components/ui/button";
 import { IoIosRestaurant } from "react-icons/io";
 import { stringify } from "querystring";
 import { json } from "stream/consumers";
+import { useRouter } from "next/navigation";
 
-const restaurantLogin: React.FC = () => {
+const restaurantSignUp : React.FC = () => {
   const inputCss = "border-2 rounded-md bg-slate-100 hover:bg-slate-200";
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -12,18 +13,29 @@ const restaurantLogin: React.FC = () => {
   const [cPassword, setCpassword] = useState<string>("");
   const [address, setAddress] = useState<string>("");
   const [contact, setContact] = useState<number>();
+  
+  const router = useRouter();
 
   const handleSignUp = async () => {
     console.log(name, email, password, cPassword, address, contact);
-    let result = await fetch("http://localhost:3001/api/restaurants", {
+    let result = await fetch("http://localhost:3000/api/restaurants", {
       method: "POST",
       body: JSON.stringify({ name, email, password, address, contact }),
     });
-    let data = await result.json();
-    console.log("result", result);
 
-    if (data.success) {
-      alert("restaurant registered successfully");
+    if (!result.ok) {
+      throw new Error("Failed to sign up. Please try again.");
+    }
+    let response = await result.json();
+
+    if (response.success) {
+      // alert("restaurant registered successfully");
+      console.log("Data in return", response);
+      const { result } = response;
+      delete result.password;
+      localStorage.setItem("restaurantUser", JSON.stringify(result));
+      console.log(JSON.stringify(result));
+      router.push("/restaurant/dashboard");
     }
   };
 
@@ -107,4 +119,4 @@ const restaurantLogin: React.FC = () => {
   );
 };
 
-export default restaurantLogin;
+export default restaurantSignUp;
