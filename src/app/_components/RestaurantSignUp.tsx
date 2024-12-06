@@ -15,12 +15,16 @@ const restaurantLogin: React.FC = () => {
 
   const handleSignUp = async () => {
     console.log(name, email, password, cPassword, address, contact);
-    let result = await fetch("http://localhost:3000/api/restaurants", {
-      method:"POST",
+    let result = await fetch("http://localhost:3001/api/restaurants", {
+      method: "POST",
       body: JSON.stringify({ name, email, password, address, contact }),
     });
-    // result = await result.json(); 
-    console.log("result",result);
+    let data = await result.json();
+    console.log("result", result);
+
+    if (data.success) {
+      alert("restaurant registered successfully");
+    }
   };
 
   return (
