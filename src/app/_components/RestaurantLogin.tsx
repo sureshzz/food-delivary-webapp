@@ -1,9 +1,12 @@
 import React from "react";
-import { Button } from "@/components/ui/button";
 import { IoIosRestaurant } from "react-icons/io";
 
-const restaurantLogin: React.FC = () => {
+const RestaurantLogin: React.FC = () => {
   const inputCss = "border-2 rounded-md bg-slate-100 hover:bg-slate-200";
+
+
+
+  
   return (
     // <div className="grid place-items-center">
 
@@ -31,4 +34,4 @@ const restaurantLogin: React.FC = () => {
   );
 };
 
-export default restaurantLogin;
+export default RestaurantLogin;

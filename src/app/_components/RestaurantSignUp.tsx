@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
 import { IoIosRestaurant } from "react-icons/io";
 import { stringify } from "querystring";
 import { json } from "stream/consumers";
 import { useRouter } from "next/navigation";
 
-const restaurantSignUp : React.FC = () => {
+const RestaurantSignUp: React.FC = () => {
   const inputCss = "border-2 rounded-md bg-slate-100 hover:bg-slate-200";
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -13,10 +12,26 @@ const restaurantSignUp : React.FC = () => {
   const [cPassword, setCpassword] = useState<string>("");
   const [address, setAddress] = useState<string>("");
   const [contact, setContact] = useState<number>();
-  
+
   const router = useRouter();
 
+  const [error, setError] = useState<Boolean>(false);
+  const [passwordError, setPasswordError] = useState<boolean>(false);
+
   const handleSignUp = async () => {
+    if (password !== cPassword) {
+      setPasswordError(true);
+      return false;
+    } else {
+      setPasswordError(false);
+    }
+    if (!name || !email || !password || !cPassword || !address || !contact) {
+      setError(true);
+      return false;
+    } else {
+      setError(false);
+    }
+
     console.log(name, email, password, cPassword, address, contact);
     let result = await fetch("http://localhost:3000/api/restaurants", {
       method: "POST",
@@ -56,6 +71,9 @@ const restaurantSignUp : React.FC = () => {
             setName(e.target.value);
           }}
         />
+        {error && !name && (
+          <span className="text-red-600">Please enter valid name.</span>
+        )}
         <label htmlFor="">Enter your email:</label>
         <input
           type="text"
@@ -66,6 +84,9 @@ const restaurantSignUp : React.FC = () => {
             setEmail(e.target.value);
           }}
         />
+        {error && !email && (
+          <span className="text-red-600">Please enter valid email. </span>
+        )}
         <label htmlFor="">Password:</label>
         <input
           type="password"
@@ -76,6 +97,14 @@ const restaurantSignUp : React.FC = () => {
             setPassword(e.target.value);
           }}
         />
+        {passwordError && (
+          <span className="text-red-600">
+            Password and Confirm password doesnot match
+          </span>
+        )}
+        {error && !password && (
+          <span className="text-red-600">Please enter valid password. </span>
+        )}
         <label htmlFor="">Confirm Password:</label>
         <input
           type="password"
@@ -86,6 +115,17 @@ const restaurantSignUp : React.FC = () => {
             setCpassword(e.target.value);
           }}
         />
+
+        {passwordError && (
+          <span className="text-red-600">
+            Password and Confirm password doesnot match
+          </span>
+        )}
+        {error && !cPassword && (
+          <span className="text-red-600">
+            Please enter valid Confirm password.{" "}
+          </span>
+        )}
         <label htmlFor="">Address:</label>
         <input
           type="text"
@@ -96,6 +136,9 @@ const restaurantSignUp : React.FC = () => {
             setAddress(e.target.value);
           }}
         />
+        {error && !address && (
+          <span className="text-red-600">Please enter valid address. </span>
+        )}
         <label htmlFor="">Contact num:</label>
         <input
           type="number"
@@ -106,6 +149,9 @@ const restaurantSignUp : React.FC = () => {
             setContact(Number(e.target.value));
           }}
         />
+        {error && !contact && (
+          <span className="text-red-600">Please enter valid contact. </span>
+        )}
 
         <button
           onClick={handleSignUp}
@@ -119,4 +165,4 @@ const restaurantSignUp : React.FC = () => {
   );
 };
 
-export default restaurantSignUp;
+export default RestaurantSignUp;
