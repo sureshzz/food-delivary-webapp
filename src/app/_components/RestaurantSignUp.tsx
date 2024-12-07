@@ -37,7 +37,7 @@ const RestaurantSignUp: React.FC = () => {
       method: "POST",
       body: JSON.stringify({ name, email, password, address, contact }),
     });
-
+    
     if (!result.ok) {
       throw new Error("Failed to sign up. Please try again.");
     }
