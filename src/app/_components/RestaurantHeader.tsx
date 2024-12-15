@@ -20,7 +20,8 @@ const RestaurantHeader = () => {
     } else {
       setDetails(data ? JSON.parse(data) : null);
     }
-  },[details,pathName,router]);
+  },[]);
+  // },[details,pathName,router]);
 
   const handleLogout = () => {
     localStorage.removeItem("restaurantUser");
